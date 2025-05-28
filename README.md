@@ -1,4 +1,4 @@
-# Identifying Disgruntled Employee Behavior in Cybersecurity Teams Using Mikrotik, AI & Splunk
+# Identifying Disgruntled Employee Behavior Across the Company Using Mikrotik, AI & Splunk by cybersecurity team
 
 ## Project Name
 
@@ -15,117 +15,122 @@
 
 ## 📊 Overview
 
-This experimental project showcases how to detect suspicious or abnormal employee behavior within a cybersecurity team using:
+This experimental project showcases how to detect suspicious or abnormal employee behavior across an entire company, using:
 
 * **Mikrotik Router** for collecting network traffic logs.
 * **TP-Link Switch** for network distribution.
 * **Splunk Enterprise** for log indexing and searching.
 * **Python scripts** with integrated AI/ML models to analyze employee behaviors in real time.
 
+> ![Overview Diagram](photo/diagram-network.png)
+
 ### Key Use Case
 
-The main idea is to monitor internal network activities (such as repeated pings, abnormal traffic patterns) and identify employees who may be acting outside normal behavior patterns, potentially indicating dissatisfaction or insider threats.
+The goal is to enable cybersecurity teams to monitor internal network activities (such as repeated pings, abnormal traffic patterns) and identify employees who may be acting outside normal behavior patterns, potentially indicating dissatisfaction, frustration, or insider threats across the organization.
 
 ---
 
-## 🛡️ Network Architecture
+## 🖥️ Hardware Setup
 
-![Network Diagram](photo/diagram-network.png)
+* **Mikrotik Router** → Central network manager, sending syslog to Splunk.
 
-* Internet ⮕ Mikrotik Router ⮕ TP-Link Switch ⮕ Employees' PCs
+  > ![Mikrotik](photo/Miktotik.png)
 
-### Employee PCs (Example)
+* **TP-Link Switch (TL-SG108E)** → Distributes internal connections.
 
-| Name | IP Address     |
-| ---- | -------------- |
-| Alex | 192.168.10.100 |
-| Sara | 192.168.10.105 |
-| Mike | 192.168.10.112 |
-| John | 192.168.10.117 |
-| Emma | 192.168.10.94  |
+  > ![Switch Photo](photo/swith-real-photo.jpg)
 
-> For detailed diagrams, check the `photo/` folder.
+* **Employee Devices** → Example IPs and names:
+  \| Name  | IP Address        |
+  \|-------|-------------------|
+  \| Alex  | 192.168.10.100    |
+  \| Sara  | 192.168.10.105    |
+  \| Mike  | 192.168.10.112    |
+  \| John  | 192.168.10.117    |
+  \| Emma  | 192.168.10.94     |
 
----
-
-## 🔧 Tools & Technologies
-
-* **Mikrotik Router**: Sending syslog events to Splunk.
-* **TP-Link Switch**: Connecting employee devices.
-* **Splunk Enterprise**: Collecting, indexing, and searching network logs.
-* **Python Scripts**:
-
-  * `insider_detector.py`: Real-time log monitoring.
-  * `ai_ml_detector.py`: Advanced ML-based behavior analysis and plotting.
-
-> Sample screenshots are available in the `photo/` folder.
+> More photos and screenshots can be found in the `photo/` folder.
 
 ---
 
-## 🛠️ Setup Steps
+## 🔧 Splunk Configuration
 
-1. **Configure Splunk**
+We configured Splunk to receive syslog data over UDP from Mikrotik:
 
-   * Navigate to **Settings > Data Inputs > UDP**.
-   * Set up a UDP listener for Mikrotik syslog (e.g., port 10514).
+* Splunk settings → Data Inputs → UDP Listener (e.g., port 10514)
+* Mikrotik → Logging rules to forward logs to Splunk's server IP
 
-2. **Configure Mikrotik Router**
-
-   * Set logging rules to forward to Splunk server IP and port.
-
-3. **Run Python Scripts**
-
-   * Start `insider_detector.py` for live monitoring.
-   * Run `ai_ml_detector.py` to apply ML models and generate plots.
-
-4. **Review Outputs**
-
-   * Console alerts for detected anomalies.
-   * Graphical plots saved in `plots/` directory.
+> ![Splunk Syslog](photo/splunk-syslog.png)
 
 ---
 
-## 👁️ AI/ML Integration
+## 🐍 Python Scripts Overview
 
-The `ai_ml_detector.py` script uses simple machine learning algorithms to:
+There are two main scripts in this project:
 
-* Track event counts per IP.
-* Apply trend analysis, moving averages, and standard deviation checks.
-* Highlight anomalies visually.
+✅ **insider\_detector.py** → Collects and counts events from Splunk.
 
-Example Output Plot:
+> ![Insider Detector](photo/inseder-detecter03.png)
 
-![Final Analysis](photo/final-analysis.png)
+✅ **ai\_ml\_detector.py** → Runs anomaly detection models and produces visual plots.
 
-> Note: With more data and integration, this framework can evolve into more advanced models like Isolation Forest or LSTM for time-series anomaly detection.
+> ![AI ML Plot](plots/192_168_10_112_detailed.png)
 
----
-
-## 📈 Real-World Potential
-
-* Monitor insider threats in corporate environments.
-* Provide early warnings for potentially dissatisfied employees.
-* Expand to cover richer behaviors (file access, login times, web activity).
+> For full visual samples, check the `photo/` directory.
 
 ---
 
-## 🛠️ Future Improvements
+## 🤖 AI & Machine Learning Integration
 
-* Deploy more sophisticated anomaly detection algorithms.
-* Integrate alert systems (e.g., Slack, email, dashboards).
-* Automate remediation (e.g., temporarily isolate suspicious devices).
-* Build a proper frontend for SOC teams to visualize results.
+We apply simple machine learning (currently Isolation Forest, expandable later) to detect unusual activity patterns:
+
+* Identify spikes or anomalies in event counts.
+* Generate visual graphs marking outlier points.
+* Build a foundation for advanced time-series or behavioral analysis in real-world settings.
+
+> ![AI Example](photo/final-analysis.png)
+
+With richer real-world data, the system could evolve to provide even stronger, dynamic diagrams and behavioral profiles, enabling the cybersecurity team to identify disgruntled or risky employees throughout the entire organization.
 
 ---
 
-## 📧 Contact
+## 🚀 How to Run
+
+1. Install Python dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+2. Configure Splunk and Mikrotik for log forwarding.
+3. Run the scripts:
+
+```bash
+python3 insider_detector.py
+python3 ai_ml_detector.py
+```
+
+4. Check console alerts and the `plots/` folder for results.
+
+---
+
+## 🔮 Future Improvements
+
+* Upgrade to advanced ML models (One-Class SVM, LSTM).
+* Add real-time alerts via Slack, email, or dashboards.
+* Expand detection to include various network activities beyond pings.
+* Build an interactive SOC dashboard.
+
+---
+
+## ✉ Contact
 
 M. Nafari
 Email: **[m.nafarai@gmail.com](mailto:m.nafarai@gmail.com)**
 
-For all detailed visuals, screenshots, and diagrams, check the repository's `photo/` branch or folder.
+For additional diagrams, configurations, and detailed screenshots, visit the repository's `photo/` branch or folder.
 
 ---
 
-This README is designed to provide clear, structured, and professional documentation to help others understand the value, setup, and potential of this project.
+This README is designed to provide a professional, structured introduction for sharing and publishing this project on GitHub.
 
