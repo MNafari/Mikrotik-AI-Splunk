@@ -1,0 +1,22 @@
+{
+    "splunk": {
+        "host": "localhost",
+        "port": 8089,
+        "username": "admin",
+        "password": "Admin123",
+        "index": "syslog",
+        "mikrotik_host": "192.168.10.1",
+        "query": "search index=* icmp ,192.168.10.1, earliest=-30s"
+    },
+    "email": {
+        "smtp_server": "smtp.example.com",
+        "smtp_port": 587,
+        "smtp_username": "alert@example.com",
+        "smtp_password": "password",
+        "from_email": "alert@example.com"
+    },
+    "ai": {
+        "threshold": 3
+    }
+}
+
