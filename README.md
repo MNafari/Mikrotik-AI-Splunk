@@ -10,6 +10,7 @@
 
 * All IP addresses and employee names used in this project are **fictional** and meant only for demonstration.
 * This project is intended for educational and research purposes only.
+* Please **respect authorship:** this project belongs to M. Nafari and is shared for learning purposes only. Do not copy or reuse commercially without explicit permission!
 
 ---
 
@@ -133,4 +134,6 @@ For additional diagrams, configurations, and detailed screenshots, visit the rep
 ---
 
 This README is designed to provide a professional, structured introduction for sharing and publishing this project on GitHub.
+
+© 2025 M. Nafari. All rights reserved. Unauthorized copying, distribution, or commercial use of this project or its components is strictly prohibited without prior written permission.
 
